@@ -57,38 +57,49 @@ class LinkedList {
         let currNode = this.head.next;
 
         while (currNode) {
-          if (currNode.value === value) 
-          break;
-
+          if (currNode.value === value) {
+            prevNode.next = currNode.next;
+            this.lenght--; 
+            console.log(value, 'was removed');
+            return this;
+          }          
           prevNode = currNode;
           currNode = currNode.next;
         }
-        prevNode.next = currNode.next;
-        
-        console.log(value, 'was removed');
-        return this;
+        console.log(value, 'is not found');
       }
     }
     else return console.log('list is empty');
   }
-  
+
+  printList() {
+    let result = '';
+    if (this.lenght !== 0) {       
+      let Node = this.head;      
+      while (Node) {
+        for(var key in Node.value) {
+        result += key + ':' + Node.value[key] + ' ';
+        }        
+        Node = Node.next;        
+      }
+      console.log(result);
+      return result;
+    }
+    else return console.log('list is empty');
+  }  
 }
 
-//What if I don't want to initilize the list with the first item through the constructor? Can you spot the mistake?
-//const list = new LinkedList();
-const list = new LinkedList();
+const list2 = new LinkedList();
+
 
 for(let i = 0; i < 20; i++){
-  list.addToHead(`item ${i}`);
+  list2.addToHead({
+    name: `Developer ${i}`,
+    age: 22,
+    skills: [
+      'C#', 'JavaScript', 'DDD'
+    ]
+  })
 }
-console.log(list);
-
-
-list.removeItem(`item 1`);
-list.removeItem(`item 4`);
-list.removeItem(`item 19`);
-list.removeItem(`item 18`);
-list.removeItem(`item 17`);
-list.removeItem(`item 3`);
-console.log(list);
-
+console.log(list2);
+list2.printList();
